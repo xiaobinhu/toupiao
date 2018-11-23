@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	
+<mapper namespace="com.baizhi.spring.dao.ItemDao">
+
+      <insert id="insert">
+         
+         insert into vote_item
+         select asuna.nextval,t.* from
+
+        <foreach collection="oids" open="(" close=")t" separator=" union " item="oid">
+             select #{item.vu_user_id},#{item.vs_id},#{oid} from dual
+        </foreach>
+         
+      </insert>
+      
+      
+      <select id="selectOne" resultType="Item">
+             select *from vote_item where vu_user_id=#{uid} and vs_id=#{sid} and vo_id=#{oid}   
+      </select>
+      
+      <select id="selectOne1" resultType="Item">
+             select *from vote_item where vu_user_id=#{uid} and vs_id=#{sid} 
+      </select>
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	
+<mapper namespace="com.baizhi.spring.dao.SubjectDao">
+        
+     <insert id="insert">
+     	     <selectKey order="BEFORE" resultType="int" keyProperty="vs_id">
+	              select jian.nextval from dual
+	         </selectKey>
+         insert into vote_subject values(#{vs_id},#{vs_title},#{vs_type})
+     </insert>
+     
+    <select id="selectType" resultType="int">
+        select vs_type from vote_subject where vs_id=#{sid}
+    
+    </select>
+    
+    
+    <update id="updateType">
+         update vote_subject set vs_type =#{vs_type} where vs_id=#{sid}
+       
+    </update>
+    
+    
+</mapper>

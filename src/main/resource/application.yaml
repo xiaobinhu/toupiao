@@ -1,0 +1,25 @@
+server:
+  port: 8081
+  context-path: /toupiao
+  jsp-servlet:
+    init-parameters:
+      development: true
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@localhost:1521:XE
+    username: hr
+    password: hr
+  mvc:
+    view:
+      suffix: /
+      prefix: .jsp
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+mybatis:
+  type-aliases-package: com.baizhi.spring.entity
+  mapper-locations: com/baizhi/spring/dao/*.xml

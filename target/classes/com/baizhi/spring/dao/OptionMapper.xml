@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	
+<mapper namespace="com.baizhi.spring.dao.OptionDao">
+
+      <insert id="insert">
+         
+         insert into vote_option
+         select shen.nextval,t.* from
+         
+         
+        <foreach collection="list" open="(" close=")t" separator=" union " item="option">
+             select #{option.vs_id},#{option.vo_option},#{option.vo_order},0 from dual
+        </foreach>
+         
+      </insert>
+
+    
+    <select id="selectByid" resultType="com.baizhi.spring.entity.Option">
+        select *from  vote_option where vs_id=#{sid} and vo_is_delete=0
+        order by vo_order
+    </select>
+    
+    <update id="update">
+       update vote_option set vo_is_delete=1 where vo_id in
+       <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id}
+       </foreach>
+      
+    </update>
+    
+    <select id="maxOrder" resultType="int">
+        select max(vo_order)  from  vote_option
+         where vs_id=#{sid}
+    </select>
+    
+    
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	
+<mapper namespace="com.baizhi.spring.dao.MessageDao">
+     <select id="selectBy" resultType="Message">
+			 select * from
+			 (select a.*,rownum as r
+			  from(select * from message
+			     <where>
+				    <if test="title !=null">
+						vs_title like #{title}  
+						
+				    </if>
+				    
+			     </where>
+			  order by vs_id)a)
+			  where r between #{start} and #{end}
+     </select>
+
+
+     <select id="count" resultType="int">
+          select count(*) from vote_subject
+          <where>
+			     <if test="title !=null">
+			         vs_title like #{title}  
+			     </if>
+			    
+		  </where>
+     </select>
+
+    <select id="selectByid" resultType="Message">
+         select * from message
+         where vs_id=#{vs_id}
+         order by vs_id
+    </select>
+  
+
+</mapper>
